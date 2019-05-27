@@ -6,10 +6,7 @@ import os
 import view
 
 
-DECIMAL_SIGNIFICANCE = 2
-
-
-def round_decimal(n, decimals=DECIMAL_SIGNIFICANCE):
+def round_decimal(n, decimals=3):
     if n > 0:
         return round_up(n, decimals=decimals)
     else:
@@ -51,16 +48,6 @@ def read_file(filename, separator):
     col_matrix = [[float(_x) for _x in x.split(separator)] for x in file_lines[1:-1]]
     col_1 = [x[0] for x in col_matrix]
     col_2 = [x[1] for x in col_matrix]
-
-    num_str = file_lines[1].split(separator)[0]
-    if num_str.find('.'):
-        decimal_str = num_str.split('.')[1]
-        if len(decimal_str.replace('0', '')) == 0:
-            DECIMAL_SIGNIFICANCE = 0
-        else:
-            DECIMAL_SIGNIFICANCE = len(decimal_str)
-    else:
-        DECIMAL_SIGNIFICANCE = 0
 
     return col_names, col_matrix, col_1, col_2
 

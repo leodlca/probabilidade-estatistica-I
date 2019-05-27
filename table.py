@@ -8,22 +8,13 @@ from collections import namedtuple
 from platform import python_version_tuple
 import re
 
-if python_version_tuple()[0] < "3":
-    from itertools import izip_longest
-    from functools import partial
-    _none_type = type(None)
-    _int_type = int
-    _float_type = float
-    _text_type = unicode
-    _binary_type = str
-else:
-    from itertools import zip_longest as izip_longest
-    from functools import reduce, partial
-    _none_type = type(None)
-    _int_type = int
-    _float_type = float
-    _text_type = str
-    _binary_type = bytes
+from itertools import zip_longest as izip_longest
+from functools import reduce, partial
+_none_type = type(None)
+_int_type = int
+_float_type = float
+_text_type = str
+_binary_type = bytes
 
 
 __all__ = ["tabulate", "tabulate_formats", "simple_separated_format"]
@@ -35,38 +26,6 @@ Line = namedtuple("Line", ["begin", "hline", "sep", "end"])
 
 DataRow = namedtuple("DataRow", ["begin", "sep", "end"])
 
-
-# A table structure is suppposed to be:
-#
-#     --- lineabove ---------
-#         headerrow
-#     --- linebelowheader ---
-#         datarow
-#     --- linebewteenrows ---
-#     ... (more datarows) ...
-#     --- linebewteenrows ---
-#         last datarow
-#     --- linebelow ---------
-#
-# TableFormat's line* elements can be
-#
-#   - either None, if the element is not used,
-#   - or a Line tuple,
-#   - or a function: [col_widths], [col_alignments] -> string.
-#
-# TableFormat's *row elements can be
-#
-#   - either None, if the element is not used,
-#   - or a DataRow tuple,
-#   - or a function: [cell_values], [col_widths], [col_alignments] -> string.
-#
-# padding (an integer) is the amount of white space around data values.
-#
-# with_header_hide:
-#
-#   - either None, to display all table elements unconditionally,
-#   - or a list of elements not to be displayed if the table has column headers.
-#
 TableFormat = namedtuple("TableFormat", ["lineabove", "linebelowheader",
                                          "linebetweenrows", "linebelow",
                                          "headerrow", "datarow",

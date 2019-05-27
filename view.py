@@ -71,7 +71,8 @@ def welcome():
 
 def get_file_read(_str):
     header(mode='Leitura do Arquivo')
-    print('* O arquivo deve estar no mesmo diretorio do script')
+    print('* Caso voce queira criar um novo arquivo, basta inserir o nome e extensao desejados.')
+    print('* Para arquivos pre-existentes, o mesmo deve estar no mesmo diretorio do script')
     print()
     _ = input('> ' + _str)
     clear()
