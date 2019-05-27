@@ -39,6 +39,7 @@ def bcentertitle(_str):
 
 
 def error(message):
+    clear()
     sepbar()
     bcenter('ERRO')
     bcenter('')
@@ -81,10 +82,36 @@ def get_file_creation(_str):
     header(mode='Criacao do Arquivo')
     print('* Esse arquivo ainda nao existe, cria-lo-emos agora!')
     print('* O arquivo tera 2 colunas com nomes de sua preferencia, com N itens numericos de comprimento.')
+    print('* Evite separadores como espaço e ponto, pois e muito provavel que o programa se comporte inesperadamente.')
     print()
     _ = input('> ' + _str)
     clear()
     return _
+
+
+def get_file_creation_nc(_str):
+    header(mode='Criacao do Arquivo')
+    print('* Esse arquivo ainda nao existe, cria-lo-emos agora!')
+    print('* O arquivo tera 2 colunas com nomes de sua preferencia, com N itens numericos de comprimento.')
+    print('* Evite separadores como espaço e ponto, pois e muito provavel que o programa se comporte inesperadamente.')
+    print()
+    _ = input('> ' + _str)
+    return _
+
+
+def get_input_nl(_str):
+    _ = input('> ' + _str)
+    print()
+    return _.strip()
+
+
+def get_input(_str):
+    _ = input('> ' + _str)
+    return _.strip()
+
+
+def println(_str):
+    print('* ' + _str)
 
 
 def success_message(_str):
@@ -126,7 +153,7 @@ def print_freq_table(faixas, col_name):
 
 
 def print_stats(col, mean, mode, stdev, col_name):
-    header(mode='Dados estatisticos do conjunto {}'.format(col_name))
+    header(mode='Dados estatisticos do conjunto "{}"'.format(col_name))
 
     bcentertitle('Usando todos os valores')
     try:
@@ -151,7 +178,7 @@ def print_stats(col, mean, mode, stdev, col_name):
 
 
 def print_outliers(outliers_inf, outliers_sup, col_name):
-    header(mode='Exibindo outliers do conjunto {}'.format(col_name))
+    header(mode='Exibindo outliers do conjunto "{}"'.format(col_name))
 
     bcentertitle('Outliers abaixo do limite inferior')
     if len(outliers_inf) > 0:
@@ -191,5 +218,5 @@ def get_end():
     header(mode='Fim')
     _ = input('> Para recomecar, pressione ENTER. Para sair, digite "q" e pressione ENTER... ')
     clear()
-    return _
+    return _.strip()
     

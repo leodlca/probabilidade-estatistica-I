@@ -4,15 +4,9 @@ import statistics
 import math
 import os
 import view
-from time import sleep 
-from functools import reduce
 
 
 DECIMAL_SIGNIFICANCE = 2
-
-
-def leave():
-    exit()
 
 
 def round_decimal(n, decimals=DECIMAL_SIGNIFICANCE):
@@ -50,8 +44,6 @@ def quantiles(dist, *, n=4, method='exclusive'):
 
 
 def read_file(filename, separator):
-    global DECIMAL_SIGNIFICANCE
-
     with open(filename, 'r+') as f:
         file_string = f.read()
     file_lines = file_string.split('\n')
@@ -216,21 +208,22 @@ while True:
     view.welcome()
     filename = view.get_file_read('Por favor insira o nome do arquivo de texto contendo os dados (com a extensao): ')
 
-    if filename.strip() == '':
+    if filename == '':
         view.error('Nome de arquivo vazio')
 
     if not os.path.isfile(filename):
         col1_name = view.get_file_creation('Insira o nome da primeira coluna: ')
         col2_name = view.get_file_creation('Insira o nome da segunda coluna: ')
-        print()
-        sep = view.get_file_creation(('Insira o(s) caractere(s) separador(es) desejado (ex: virgula, '
+
+        sep = view.get_file_creation_nc(('Insira o(s) caractere(s) separador(es) desejado (ex: virgula, '
                                       'ponto e virgula, dois pontos, etc): '))
+
         print()
-        col_1 = [float(x) for x in view.get_file_creation(('Insira os valores numericos da coluna "' + col1_name + '", '
+        col_1 = [float(x) for x in view.get_input(('Insira os valores numericos da coluna "' + col1_name + '", '
                                                         'separados pelo(s) caractere(s) escolhido(s): ' )).split(sep)]
-        col_2 = [float(x) for x in view.get_file_creation(('Insira os valores numericos da coluna "' + col2_name + '", '
+        col_2 = [float(x) for x in view.get_input(('Insira os valores numericos da coluna "' + col2_name + '", '
                                                         'separados pelo(s) caractere(s) escolhido(s): ' )).split(sep)]
-        print()
+
         if(len(col_1) != len(col_2)):
             view.error('As duas colunas devem ter o mesmo comprimento')
         else:
@@ -286,6 +279,6 @@ while True:
 
     view.print_advanced_stats(pc, a, b)
 
-    if 'quit' in view.get_end().lower():
+    if 'q' in view.get_end().lower():
         break
 
